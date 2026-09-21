@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/almoxarifado
+    username: almoxarifado
+    password: almoxarifado
+  jpa:
+    show-sql: true
+
+logging:
+  level:
+    com.escola.almoxarifado: DEBUG
+    org.hibernate.SQL: DEBUG

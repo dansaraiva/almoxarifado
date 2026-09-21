@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: almoxarifado-db
+    environment:
+      POSTGRES_DB: almoxarifado
+      POSTGRES_USER: almoxarifado
+      POSTGRES_PASSWORD: almoxarifado
+    ports:
+      - "5432:5432"
+    volumes:
+      - almoxarifado_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U almoxarifado"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: almoxarifado-app
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/almoxarifado
+      SPRING_DATASOURCE_USERNAME: almoxarifado
+      SPRING_DATASOURCE_PASSWORD: almoxarifado
+      JWT_SECRET: troque-este-segredo-em-producao-minimo-32-caracteres
+    ports:
+      - "8080:8080"
+
+volumes:
+  almoxarifado_pgdata:
