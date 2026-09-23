@@ -16,9 +16,9 @@ services:
       timeout: 5s
       retries: 5
 
-  app:
-    build: .
-    container_name: almoxarifado-app
+  backend:
+    build: ./backend
+    container_name: almoxarifado-backend
     depends_on:
       db:
         condition: service_healthy
@@ -30,6 +30,10 @@ services:
       JWT_SECRET: troque-este-segredo-em-producao-minimo-32-caracteres
     ports:
       - "8080:8080"
+  # frontend:
+  #   build: ./frontend
+  #   ports:
+  #     - "5173:5173"
 
 volumes:
   almoxarifado_pgdata:

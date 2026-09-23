@@ -1,8 +1,13 @@
-# Maven
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# Java / Maven (backend/)
+backend/target/
+!backend/.mvn/wrapper/maven-wrapper.jar
+!backend/**/src/main/**/target/
+!backend/**/src/test/**/target/
+
+# Node / Vite (frontend/)
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
 
 # IDEs
 .idea/
@@ -24,12 +29,8 @@ Thumbs.db
 
 # Variáveis de ambiente locais
 .env
-application-local.yml
-
-# Build
-!**/src/main/**/build/
-!**/src/test/**/build/
-build/
+*/application-local.yml
+frontend/.env.local
 
 # Docker
 *.pid
