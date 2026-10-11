@@ -2,9 +2,11 @@ import { useState } from 'react';
 import Button from '../../components/Button/Button';
 import Modal from '../../components/Modal/Modal';
 import Table from '../../components/Table/Table';
+import Toast from '../../components/Toast/Toast';
 
 function Home() {
   const [modalAberto, setModalAberto] = useState(false);
+  const [toast, setToast] = useState(null);
 
   const columns = [
     { key: 'nome', label: 'Nome' },
@@ -24,11 +26,20 @@ function Home() {
     <div className="p-8">
       <h1 className="text-3xl font-bold text-blue-600 mb-6">Lista de Itens</h1>
 
-      <Button onClick={() => setModalAberto(true)}>Abrir Modal</Button>
-
-      <div className="mt-6">
-        <Table columns={columns} data={data} itemsPerPage={5} />
+      <div className="flex gap-2 mb-6">
+        <Button onClick={() => setModalAberto(true)}>Abrir Modal</Button>
+        <Button
+          variant="secondary"
+          onClick={() => setToast({ mensagem: 'Salvo!', tipo: 'success' })}
+        >
+          Toast Sucesso
+        </Button>
+        <Button variant="danger" onClick={() => setToast({ mensagem: 'Erro!', tipo: 'error' })}>
+          Toast Erro
+        </Button>
       </div>
+
+      <Table columns={columns} data={data} itemsPerPage={5} />
 
       <Modal
         aberto={modalAberto}
@@ -45,6 +56,10 @@ function Home() {
           </Button>
         </div>
       </Modal>
+
+      {toast && (
+        <Toast mensagem={toast.mensagem} tipo={toast.tipo} onFechar={() => setToast(null)} />
+      )}
     </div>
   );
 }
